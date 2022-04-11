@@ -10,8 +10,14 @@ export const Ready = async (bot: Client) => {
 
   const commandsData = CommandList.map((cmd) => cmd.data.toJSON());
 
-  await rest.put(Routes.applicationCommands(bot.user?.id || "missing id"), {
-    body: commandsData,
-  });
+  await rest.put(
+    Routes.applicationGuildCommands(
+      bot.user?.id || "missing id",
+      process.env["GUILD"] as string
+    ),
+    {
+      body: commandsData,
+    }
+  );
   console.log("[BOT] Commands Registered and BOT started 🚀");
 };
