@@ -19,5 +19,9 @@ export const Ready = async (bot: Client) => {
       body: commandsData,
     }
   );
+
+  // await rest.put(Routes.applicationCommands(process.env["CLIENT"] as string), {
+  //   body: commandsData,
+  // });
   console.log("[BOT] Commands Registered and BOT started 🚀");
 };

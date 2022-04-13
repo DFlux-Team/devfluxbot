@@ -1,8 +1,8 @@
 import { prisma } from "../partials/prisma";
-import { getById } from "./getById";
+import { getFluxer } from "./get";
 
 export const updateFluxer = async (id: string) => {
-  const data = await getById(id);
+  const data = await getFluxer(id);
 
   if (data.score > 150) {
     await prisma.fluxer.update({

@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateFluxer = void 0;
 const prisma_1 = require("../partials/prisma");
-const getById_1 = require("./getById");
+const get_1 = require("./get");
 const updateFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield (0, getById_1.getById)(id);
+    const data = yield (0, get_1.getFluxer)(id);
     if (data.score > 150) {
         yield prisma_1.prisma.fluxer.update({
             where: { discordId: id },

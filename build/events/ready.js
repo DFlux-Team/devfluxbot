@@ -20,6 +20,9 @@ const Ready = (bot) => __awaiter(void 0, void 0, void 0, function* () {
     yield rest.put(v9_1.Routes.applicationGuildCommands(((_a = bot.user) === null || _a === void 0 ? void 0 : _a.id) || "missing id", process.env["GUILD"]), {
         body: commandsData,
     });
+    // await rest.put(Routes.applicationCommands(process.env["CLIENT"] as string), {
+    //   body: commandsData,
+    // });
     console.log("[BOT] Commands Registered and BOT started 🚀");
 });
 exports.Ready = Ready;

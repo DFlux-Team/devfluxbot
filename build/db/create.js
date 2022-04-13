@@ -9,24 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getById = void 0;
+exports.createFluxer = void 0;
 const prisma_1 = require("../partials/prisma");
-const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const details = (yield prisma_1.prisma.fluxer.findUnique({
-        where: {
-            discordId: id,
-        },
-    })) ||
-        (yield prisma_1.prisma.fluxer.create({
-            data: {
-                discordId: id,
-                level: 0,
-                score: 0,
-                title: "Unknown Dev",
-                createdAt: Date.now().toString(),
-                updatedAt: Date.now().toString(),
-            },
-        }));
-    return details;
+const createFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    let date = new Date(Date.now());
+    const data = {
+        discordId: id,
+        level: 0,
+        score: 0,
+        thankrate: 0,
+        title: "Unknown Dev",
+        createdAt: date,
+        updatedAt: date,
+    };
+    return yield prisma_1.prisma.fluxer.create({ data: data });
 });
-exports.getById = getById;
+exports.createFluxer = createFluxer;
