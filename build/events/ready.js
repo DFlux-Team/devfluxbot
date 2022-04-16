@@ -14,10 +14,13 @@ const rest_1 = require("@discordjs/rest");
 const v9_1 = require("discord-api-types/v9");
 const CommandList_1 = require("../partials/CommandList");
 const Ready = (bot) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
+    var _a, _b;
+    (_a = bot.user) === null || _a === void 0 ? void 0 : _a.setActivity(`/help on ${bot.guilds.cache.size} servers`, {
+        type: "PLAYING",
+    });
     const rest = new rest_1.REST({ version: "9" }).setToken(process.env["TOKEN"]);
     const commandsData = CommandList_1.CommandList.map((cmd) => cmd.data.toJSON());
-    yield rest.put(v9_1.Routes.applicationGuildCommands(((_a = bot.user) === null || _a === void 0 ? void 0 : _a.id) || "missing id", process.env["GUILD"]), {
+    yield rest.put(v9_1.Routes.applicationGuildCommands(((_b = bot.user) === null || _b === void 0 ? void 0 : _b.id) || "missing id", process.env["GUILD"]), {
         body: commandsData,
     });
     // await rest.put(Routes.applicationCommands(bot.user?.id as string), {
