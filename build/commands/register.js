@@ -9,12 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFluxer = void 0;
-const prisma_1 = require("../partials/prisma");
-const getFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const gotUser = yield prisma_1.prisma.fluxer.findUnique({
-        where: { discordId: id },
-    });
-    return gotUser;
-});
-exports.getFluxer = getFluxer;
+exports.register = void 0;
+const builders_1 = require("@discordjs/builders");
+const create_1 = require("../db/create");
+exports.register = {
+    data: new builders_1.SlashCommandBuilder()
+        .setName("register")
+        .setDescription("Register for all the events"),
+    run: (interact) => __awaiter(void 0, void 0, void 0, function* () {
+        yield interact.deferReply();
+        const newUser = yield (0, create_1.createFluxer)(interact.user.id, interact.user.username);
+        yield interact.editReply(`${newUser.username} has been registered successfully for all the events!`);
+    }),
+};

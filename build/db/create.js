@@ -11,17 +11,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createFluxer = void 0;
 const prisma_1 = require("../partials/prisma");
-const createFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    let date = new Date(Date.now());
-    const data = {
-        discordId: id,
-        level: 0,
-        score: 0,
-        thankrate: 0,
-        title: "Unknown Dev",
-        createdAt: date,
-        updatedAt: date,
-    };
-    return yield prisma_1.prisma.fluxer.create({ data: data });
+const createFluxer = (id, username) => __awaiter(void 0, void 0, void 0, function* () {
+    const newFluxer = yield prisma_1.prisma.fluxer.upsert({
+        where: { discordId: id },
+        update: {},
+        create: {
+            discordId: id,
+            username: username,
+            level: 0,
+            score: 0,
+            thankrate: 0,
+            noQuiz: 0,
+            noMonQuiz: 0,
+            title: "Unknown Dev",
+        },
+    });
+    return newFluxer;
 });
 exports.createFluxer = createFluxer;

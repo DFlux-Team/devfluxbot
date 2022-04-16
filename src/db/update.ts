@@ -1,46 +1,65 @@
+import { Fluxer } from "@prisma/client";
 import { prisma } from "../partials/prisma";
 import { getFluxer } from "./get";
 
 export const updateFluxer = async (id: string) => {
   const data = await getFluxer(id);
+  let title = "Unknown Dev";
+  const date = new Date(Date.now()).toISOString();
 
-  if (data.score > 150) {
-    await prisma.fluxer.update({
-      where: { discordId: id },
-      data: { score: 0, level: data.level + 1 },
-    });
-  }
-
-  let title = data.title;
-
-  if (data.level >= 5) {
+  if (data!.level >= 5) {
     title = "Noobie";
   }
-  if (data.level >= 10) {
+  if (data!.level >= 10) {
     title = "Average Kid";
   }
-  if (data.level >= 20) {
+  if (data!.level >= 20) {
     title = "Famous Picasso";
   }
-  if (data.level >= 30) {
+  if (data!.level >= 30) {
     title = "Newton of Computers";
   }
 
-  await prisma.fluxer.update({
-    where: {
-      discordId: id,
-    },
+  const updated = await prisma.fluxer.update({
+    where: { discordId: data?.discordId },
     data: {
+      score: data!.score >= 150 ? (data!.score = 0) : data!.score + 15,
+      level: {
+        increment: data!.score >= 150 ? 1 : 0,
+      },
+      noQuiz: {
+        increment: 1,
+      },
       title: title,
-      updatedAt: Date.now().toString(),
+      updatedAt: date,
     },
   });
 
-  const details = await prisma.fluxer.findUnique({
-    where: {
-      discordId: id,
+  return updated;
+};
+
+export const updateQuizNumber = async (id: string): Promise<Fluxer | null> => {
+  const data = await prisma.fluxer.update({
+    where: { discordId: id },
+    data: {
+      noQuiz: {
+        increment: 1,
+      },
     },
   });
 
-  return details;
+  return data;
+};
+
+export const updateMonthly = async (id: string): Promise<Fluxer | null> => {
+  const updated = await prisma.fluxer.update({
+    where: { discordId: id },
+    data: {
+      noMonQuiz: {
+        increment: 1,
+      },
+    },
+  });
+
+  return updated;
 };

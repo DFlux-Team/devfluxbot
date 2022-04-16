@@ -9,18 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateFluxer = void 0;
+exports.updateMonthly = exports.updateQuizNumber = exports.updateFluxer = void 0;
 const prisma_1 = require("../partials/prisma");
 const get_1 = require("./get");
 const updateFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield (0, get_1.getFluxer)(id);
-    if (data.score > 150) {
-        yield prisma_1.prisma.fluxer.update({
-            where: { discordId: id },
-            data: { score: 0, level: data.level + 1 },
-        });
-    }
-    let title = data.title;
+    let title = "Unknown Dev";
+    const date = new Date(Date.now()).toISOString();
     if (data.level >= 5) {
         title = "Noobie";
     }
@@ -33,20 +28,44 @@ const updateFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
     if (data.level >= 30) {
         title = "Newton of Computers";
     }
-    yield prisma_1.prisma.fluxer.update({
-        where: {
-            discordId: id,
-        },
+    const updated = yield prisma_1.prisma.fluxer.update({
+        where: { discordId: data === null || data === void 0 ? void 0 : data.discordId },
         data: {
+            score: data.score >= 150 ? (data.score = 0) : data.score + 15,
+            level: {
+                increment: data.score >= 150 ? 1 : 0,
+            },
+            noQuiz: {
+                increment: 1,
+            },
             title: title,
-            updatedAt: Date.now().toString(),
+            updatedAt: date,
         },
     });
-    const details = yield prisma_1.prisma.fluxer.findUnique({
-        where: {
-            discordId: id,
-        },
-    });
-    return details;
+    return updated;
 });
 exports.updateFluxer = updateFluxer;
+const updateQuizNumber = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const data = yield prisma_1.prisma.fluxer.update({
+        where: { discordId: id },
+        data: {
+            noQuiz: {
+                increment: 1,
+            },
+        },
+    });
+    return data;
+});
+exports.updateQuizNumber = updateQuizNumber;
+const updateMonthly = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const updated = yield prisma_1.prisma.fluxer.update({
+        where: { discordId: id },
+        data: {
+            noMonQuiz: {
+                increment: 1,
+            },
+        },
+    });
+    return updated;
+});
+exports.updateMonthly = updateMonthly;
