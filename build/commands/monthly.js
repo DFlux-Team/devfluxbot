@@ -30,7 +30,7 @@ exports.monthly = {
             yield interact.editReply("You have to be registered in order to record your points.\nRun the `/register` command to register yourself.");
         }
         else {
-            if (user.round <= 3) {
+            if (user.round < 4) {
                 const { data } = yield axios_1.default.get("https://quizapi.io/api/v1/questions", {
                     headers: {
                         "X-Api-Key": process.env["API_KEY"],

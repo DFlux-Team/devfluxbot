@@ -10,3 +10,14 @@ export const getFluxer = async (id: string): Promise<Fluxer | null> => {
 
   return gotUser;
 };
+
+export const getLeaderBoard = async () => {
+  const gotLead = await prisma.fluxer.findMany({
+    take: 5,
+    orderBy: {
+      monScore: "desc",
+    },
+  });
+
+  return gotLead;
+};

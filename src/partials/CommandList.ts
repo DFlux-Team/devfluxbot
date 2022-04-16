@@ -1,4 +1,7 @@
 import { help } from "../commands/help";
+import { info } from "../commands/info";
+import { invite } from "../commands/invite";
+import { lb } from "../commands/lb";
 import { monthly } from "../commands/monthly";
 import { ping } from "../commands/ping";
 import { quiz } from "../commands/quiz";
@@ -15,4 +18,7 @@ export const CommandList: CommandInterface[] = [
   quiz,
   monthly,
   register,
+  lb,
+  invite,
+  info,
 ];

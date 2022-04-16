@@ -20,7 +20,7 @@ export const Ready = async (bot: Client) => {
     }
   );
 
-  // await rest.put(Routes.applicationCommands(process.env["CLIENT"] as string), {
+  // await rest.put(Routes.applicationCommands(bot.user?.id as string), {
   //   body: commandsData,
   // });
   console.log("[BOT] Commands Registered and BOT started 🚀");

@@ -9,16 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = void 0;
+exports.lb = void 0;
 const builders_1 = require("@discordjs/builders");
-const create_1 = require("../db/create");
-exports.register = {
+const discord_js_1 = require("discord.js");
+const get_1 = require("../db/get");
+exports.lb = {
     data: new builders_1.SlashCommandBuilder()
-        .setName("register")
-        .setDescription("Register for all the events"),
+        .setName("lb")
+        .setDescription("Leaderboards of the server events"),
     run: (interact) => __awaiter(void 0, void 0, void 0, function* () {
         yield interact.deferReply();
-        const newUser = yield (0, create_1.createFluxer)(interact.user.id, interact.user.tag);
-        yield interact.editReply(`**\`${newUser.username}\`** has been registered successfully for all the events. 🙌💐`);
+        const ranklist = yield (0, get_1.getLeaderBoard)();
+        const rankEmbed = new discord_js_1.MessageEmbed()
+            .setTitle("Quiz Rank List")
+            .setDescription("The Rank List for the Quizzes taken")
+            .setColor("RANDOM")
+            .setTimestamp()
+            .setFooter({
+            text: `Request by ${interact.user.tag}`,
+            iconURL: interact.user.displayAvatarURL(),
+        });
+        for (let i of ranklist) {
+            rankEmbed.addField(`${ranklist.indexOf(i) + 1}. ${i.username} -- ${i.monScore} points`, "\u200B");
+        }
+        yield interact.editReply({ embeds: [rankEmbed] });
     }),
 };

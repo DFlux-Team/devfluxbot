@@ -9,12 +9,9 @@ export const register: CommandInterface = {
 
   run: async (interact) => {
     await interact.deferReply();
-    const newUser = await createFluxer(
-      interact.user.id,
-      interact.user.username
-    );
+    const newUser = await createFluxer(interact.user.id, interact.user.tag);
     await interact.editReply(
-      `${newUser.username} has been registered successfully for all the events!`
+      `**\`${newUser.username}\`** has been registered successfully for all the events. 🙌💐`
     );
   },
 };

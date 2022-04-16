@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFluxer = void 0;
+exports.getLeaderBoard = exports.getFluxer = void 0;
 const prisma_1 = require("../partials/prisma");
 const getFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const gotUser = yield prisma_1.prisma.fluxer.findUnique({
@@ -20,3 +20,13 @@ const getFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return gotUser;
 });
 exports.getFluxer = getFluxer;
+const getLeaderBoard = () => __awaiter(void 0, void 0, void 0, function* () {
+    const gotLead = yield prisma_1.prisma.fluxer.findMany({
+        take: 5,
+        orderBy: {
+            monScore: "desc",
+        },
+    });
+    return gotLead;
+});
+exports.getLeaderBoard = getLeaderBoard;

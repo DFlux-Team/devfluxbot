@@ -19,7 +19,7 @@ export const monthly: CommandInterface = {
         "You have to be registered in order to record your points.\nRun the `/register` command to register yourself."
       );
     } else {
-      if (user!.round! <= 3) {
+      if (user!.round! < 4) {
         const { data } = await axios.get(
           "https://quizapi.io/api/v1/questions",
           {
