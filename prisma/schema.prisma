@@ -20,6 +20,8 @@ model Fluxer {
   thankrate Int?      @default(0)
   noQuiz    Int?      @default(0)
   noMonQuiz Int?      @default(0)
+  monScore  Int?      @default(0)
+  round     Int?      @default(1)
   title     String    @default("Unknown Dev")
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt()

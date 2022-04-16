@@ -57,13 +57,20 @@ const updateQuizNumber = (id) => __awaiter(void 0, void 0, void 0, function* () 
     return data;
 });
 exports.updateQuizNumber = updateQuizNumber;
-const updateMonthly = (id) => __awaiter(void 0, void 0, void 0, function* () {
+const updateMonthly = (id, stat) => __awaiter(void 0, void 0, void 0, function* () {
+    const updatedData = yield (0, exports.updateFluxer)(id);
     const updated = yield prisma_1.prisma.fluxer.update({
         where: { discordId: id },
         data: {
-            noMonQuiz: {
-                increment: 1,
+            monScore: {
+                increment: stat === false ? 0 : 30,
             },
+            round: {
+                increment: updatedData.noMonQuiz === 15 ? 1 : 0,
+            },
+            noMonQuiz: updatedData.noMonQuiz === 15
+                ? (updatedData.noMonQuiz = 0)
+                : updatedData.noMonQuiz + 1,
         },
     });
     return updated;

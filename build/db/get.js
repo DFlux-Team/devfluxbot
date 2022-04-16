@@ -15,6 +15,8 @@ const getFluxer = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const gotUser = yield prisma_1.prisma.fluxer.findUnique({
         where: { discordId: id },
     });
+    if (!gotUser)
+        return null;
     return gotUser;
 });
 exports.getFluxer = getFluxer;

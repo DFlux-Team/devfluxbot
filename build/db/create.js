@@ -19,6 +19,8 @@ const createFluxer = (id, username) => __awaiter(void 0, void 0, void 0, functio
             discordId: id,
             username: username,
             level: 0,
+            monScore: 0,
+            round: 1,
             score: 0,
             thankrate: 0,
             noQuiz: 0,

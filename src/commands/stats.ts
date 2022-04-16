@@ -15,7 +15,7 @@ export const stats: CommandInterface = {
 
     if (!userInfo) {
       await interact.editReply(
-        `User with ID ${interact.user.id} is not present in the Database.\nKindly run the \`/register\` command to register yourself`
+        `User with ID ${interact.user.id} is not present in the Database.\nKindly run the \`/register\` command to register yourself.`
       );
     } else {
       const statsEmbed = new MessageEmbed()

@@ -22,7 +22,7 @@ exports.stats = {
         yield interact.deferReply();
         const userInfo = yield (0, get_1.getFluxer)(interact.user.id);
         if (!userInfo) {
-            yield interact.editReply(`User with ID ${interact.user.id} is not present in the Database.\nKindly run the \`/register\` command to register yourself`);
+            yield interact.editReply(`User with ID ${interact.user.id} is not present in the Database.\nKindly run the \`/register\` command to register yourself.`);
         }
         else {
             const statsEmbed = new discord_js_1.MessageEmbed()

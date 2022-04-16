@@ -51,13 +51,25 @@ export const updateQuizNumber = async (id: string): Promise<Fluxer | null> => {
   return data;
 };
 
-export const updateMonthly = async (id: string): Promise<Fluxer | null> => {
+export const updateMonthly = async (
+  id: string,
+  stat: boolean
+): Promise<Fluxer | null> => {
+  const updatedData = await updateFluxer(id);
+
   const updated = await prisma.fluxer.update({
     where: { discordId: id },
     data: {
-      noMonQuiz: {
-        increment: 1,
+      monScore: {
+        increment: stat === false ? 0 : 30,
       },
+      round: {
+        increment: updatedData!.noMonQuiz === 15 ? 1 : 0,
+      },
+      noMonQuiz:
+        updatedData!.noMonQuiz === 15
+          ? (updatedData!.noMonQuiz = 0)
+          : updatedData!.noMonQuiz! + 1,
     },
   });
 

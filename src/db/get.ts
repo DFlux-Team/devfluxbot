@@ -6,5 +6,7 @@ export const getFluxer = async (id: string): Promise<Fluxer | null> => {
     where: { discordId: id },
   });
 
+  if (!gotUser) return null;
+
   return gotUser;
 };

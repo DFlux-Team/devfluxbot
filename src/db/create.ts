@@ -8,6 +8,8 @@ export const createFluxer = async (id: string, username: string) => {
       discordId: id,
       username: username,
       level: 0,
+      monScore: 0,
+      round: 1,
       score: 0,
       thankrate: 0,
       noQuiz: 0,
