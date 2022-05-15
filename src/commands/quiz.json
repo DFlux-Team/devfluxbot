@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "question": "What color is the sky on earth?",
+      "options": ["🟦", "🟨", "🟥", "🟩"],
+      "answer": "🟦"
+    },
+    {
+      "question": "Android uses which OS kernel?",
+      "options": ["Windows", "MacOSX", "Linux"],
+      "answer": "Linux"
+    },
+    {
+      "question": "What is the first letter in english alphabets",
+      "options": ["A", "B", "C"],
+      "answer": "A"
+    },
+    {
+      "question": "Sunder Pichai is the CEO of _____",
+      "options": ["Apple", "Microsoft", "Google"],
+      "answer": "Google"
+    },
+    {
+      "question": "The least stable conformer of cyclohexane is _____",
+      "options": ["Chair", "Twist Chair", "Boat", "Twist Boat"],
+      "answer": "Boat"
+    }
+  ]
+}
