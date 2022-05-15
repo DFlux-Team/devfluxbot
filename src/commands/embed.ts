@@ -107,11 +107,12 @@ export const embed: CommandInterface = {
       });
 
       collector.on("collect", async (opr) => {
-        await opr.deferUpdate();
         if (opr.customId === correctReact) {
           reactEmbed.addField(`Answered by \`${opr.user.tag}\``, "\u200b");
           opr.update({ embeds: [reactEmbed] });
         } else {
+          await opr.deferUpdate();
+
           opr.followUp({
             content: "You are wrong.. Try again",
             ephemeral: true,
